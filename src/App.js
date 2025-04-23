@@ -1,25 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { component, useState } from 'react'
+import Navbar from './components/Navbar';
+import News from './components/News';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import LoadingBar from 'react-top-loading-bar'
+
+const App = ()=> {
+  
+  
+  const [progress, setProgress] = useState(0)
+  
+    return (
+      <div>
+        <Router>
+        <Navbar/>
+        <LoadingBar
+        color='#f11946'
+        progress={progress}
+        
+      />
+        <Switch>
+          <Route exact path="/"><News setProgress={setProgress} country="us" pageSize={12} category="general" key="general"/></Route>
+          <Route exact path="/business"><News setProgress={setProgress} country="us" pageSize={12} category="business" key="business"/></Route>
+          <Route exact path="/entertainment"><News setProgress={setProgress} country="us" pageSize={12} category="entertainment" key="entertainment"/></Route>
+          <Route exact path="/health"><News setProgress={setProgress} country="us" pageSize={12} category="health" key="health"/></Route>
+          <Route exact path="/science"><News setProgress={setProgress} country="us" pageSize={12} category="science" key="science"/></Route>
+          <Route exact path="/sports"><News setProgress={setProgress} country="us" pageSize={12} category="sports" key="sports"/></Route>
+          <Route exact path="/technology"><News setProgress={setProgress} country="us" pageSize={12} category="technology" key="technology"/></Route>
+        </Switch>
+        </Router>
+      </div>
+    )
 }
 
-export default App;
+export default App
